@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../components/my_bottom_nav_bar.dart';
 import '../../constants.dart';
 import 'components/body.dart';
 
@@ -8,9 +9,20 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(context) {
-    return const Scaffold(
-      backgroundColor: kBackgroundColor,
+    return Scaffold(
+      appBar: buildAppBar(context),
       body: Body(),
+      bottomNavigationBar: MyBottomNavBar(),
+      backgroundColor: kBackgroundColor,
+    );
+  }
+
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(
+      elevation: 0,
+      toolbarHeight: 45,
+      backgroundColor: kBackgroundColor,
+      automaticallyImplyLeading: false,
     );
   }
 }
