@@ -18,7 +18,7 @@ class Transaction {
   late String status;
   late DateTime processDateTime;
   late String? message;
-  late int spendingGoalId;
+  late int? spendingGoalId;
   late double amount;
   late String pathToIcon;
 

@@ -20,7 +20,7 @@ class Options extends StatelessWidget {
           OptionTemplate(icon: Icons.calculate, iconColor: Colors.orange, title: "Getting a home loan", description: "See your credit report now", routeTo: Container(color: Colors.yellow,)),
           OptionTemplate(icon: Icons.category, iconColor: Colors.green, title: "Set up a budget", description: "Manage your spending", routeTo: Container(color: Colors.yellow,))
         ],
-      )
+      ),
     );
   }
 }

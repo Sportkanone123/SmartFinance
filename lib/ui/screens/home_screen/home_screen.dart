@@ -13,8 +13,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(),
-      bottomNavigationBar: MyBottomNavBar(),
+      body: const Body(),
+      bottomNavigationBar: const MyBottomNavBar(selected: 1,),
       backgroundColor: kBackgroundColor,
     );
   }
@@ -26,8 +26,8 @@ class HomeScreen extends StatelessWidget {
       flexibleSpace: Column(
         children: <Widget>[
           SizedBox(height: MediaQuery.of(context).size.width * 0.1,),
-          Header(),
-          SearchBar(),
+          const Header(),
+          const SearchBar(),
         ],
       ),
       backgroundColor: kBackgroundColor,

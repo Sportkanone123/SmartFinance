@@ -15,8 +15,6 @@ class Body extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          Header(size: size),
-          SearchBar(),
           MyAccount(size: size),
           Transactions(size: size),
           Options(size: size),
