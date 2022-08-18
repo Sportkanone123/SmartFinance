@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:local_auth/local_auth.dart';
 import 'package:smart_finance/sql/database_helper.dart';
 import 'package:smart_finance/sql/objects/Account.dart';
 import 'package:smart_finance/ui/constants.dart';
@@ -10,6 +9,10 @@ import 'package:smart_finance/utils/authentication.dart';
 
 void main() {
   runApp(MyApp());
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    systemNavigationBarColor: Color(0xFFFAFAFA),
+    systemNavigationBarIconBrightness: Brightness.dark,
+  ));
 }
 
 class MyApp extends StatelessWidget {
