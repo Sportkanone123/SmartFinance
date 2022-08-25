@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_finance/ui/components/no_animation_material_page_router.dart';
 import 'package:smart_finance/ui/constants.dart';
 
 import '../../../../utils/authentication.dart';
@@ -19,7 +20,7 @@ class _VerifyState extends State<Verify> {
     Authentication.authenticate().then((value) => {
       if (value) {
         Navigator.of(context).push(
-          MaterialPageRoute(
+          NoAnimationMaterialPageRoute(
             builder: (context) => const HomeScreen(),
           ),
         ),
@@ -43,7 +44,7 @@ class _VerifyState extends State<Verify> {
             {
               if (value) {
                 Navigator.of(context).push(
-                  MaterialPageRoute(
+                  NoAnimationMaterialPageRoute(
                     builder: (context) => const HomeScreen(),
                   ),
                 ),
