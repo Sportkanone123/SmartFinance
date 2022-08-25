@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../components/my_bottom_nav_bar.dart';
-import '../../constants.dart';
+import '../../../components/my_bottom_nav_bar.dart';
+import '../../../constants.dart';
 import 'components/body.dart';
 import 'components/header.dart';
 

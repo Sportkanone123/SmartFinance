@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:smart_finance/ui/screens/transaction/transaction_display_screen/transaction_display_screen.dart';
 
 import '../../../sql/objects/Transaction.dart';
+import '../../components/no_animation_material_page_router.dart';
 
 class TransactionTemplate extends StatelessWidget {
   final Transaction transaction;
@@ -12,7 +14,10 @@ class TransactionTemplate extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        //TODO do something
+        Navigator.push(
+          context,
+          NoAnimationMaterialPageRoute(builder: (context) => TransactionDisplayScreen(transaction: transaction)),
+        );
       },
       child: Row(
         children: [

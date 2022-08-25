@@ -18,9 +18,9 @@ class AccountTemplate extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("${account.balance} €", style: const TextStyle(fontSize: 16, color: Colors.black),),
+              Text(account.title, style: const TextStyle(fontSize: 16, color: Colors.black),),
               const SizedBox(height: 2,),
-              Text(account.accountNumber, style: const TextStyle(fontSize: 12, color: Color(0xFF84848A),),),
+              Text("${account.balance} €", style: const TextStyle(fontSize: 12, color: Color(0xFF84848A),),),
             ],
           ),
         ),

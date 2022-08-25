@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../components/no_animation_material_page_router.dart';
+
 class OptionTemplate extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
@@ -16,7 +18,7 @@ class OptionTemplate extends StatelessWidget {
       onTap: (){
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => routeTo),
+          NoAnimationMaterialPageRoute(builder: (context) => routeTo),
         );
       },
       child: Row(
