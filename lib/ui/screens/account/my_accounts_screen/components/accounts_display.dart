@@ -3,7 +3,7 @@ import 'package:smart_finance/sql/objects/Account.dart';
 import 'package:smart_finance/ui/templates/account/account_template.dart';
 import 'package:smart_finance/ui/templates/page_entry_template.dart';
 
-import '../../../constants.dart';
+import '../../../../constants.dart';
 
 class AccountsDisplay extends StatelessWidget {
   const AccountsDisplay({Key? key}) : super(key: key);
@@ -12,8 +12,9 @@ class AccountsDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        PageEntry(
+        PageEntryWithBalance(
           title: "CREDIT CARDS",
+          balance: 19234.00,
           child: Wrap(
             runSpacing: kDefaultPadding * 1.5,
             children: [
@@ -21,8 +22,9 @@ class AccountsDisplay extends StatelessWidget {
             ],
           ),
         ),
-        PageEntry(
+        PageEntryWithBalance(
           title: "MASTER CARDS",
+          balance: 30012.00,
           child: Wrap(
             runSpacing: kDefaultPadding * 1.5,
             children: [

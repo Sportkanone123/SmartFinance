@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_finance/ui/screens/my_accounts_screen/components/accounts_display.dart';
+import 'package:smart_finance/ui/screens/account/my_accounts_screen/components/accounts_display.dart';
+
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
