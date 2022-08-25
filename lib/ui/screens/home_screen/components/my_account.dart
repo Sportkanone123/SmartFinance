@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_finance/sql/objects/Account.dart';
+import 'package:smart_finance/ui/screens/account/my_accounts_screen/my_accounts_screen.dart';
 import 'package:smart_finance/ui/templates/account/account_template.dart';
 import 'package:smart_finance/ui/templates/page_entry_template.dart';
 
@@ -14,7 +15,7 @@ class MyAccount extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageEntryExtendOption(
         title: "My accounts",
-        extendWidget: Container( color: Colors.green,),
+        extendWidget: const MyAccountsScreen(),
         child: Wrap(
           runSpacing: kDefaultPadding * 1.5,
           children: [
