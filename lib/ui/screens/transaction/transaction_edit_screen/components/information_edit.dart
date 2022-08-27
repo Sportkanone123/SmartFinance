@@ -10,14 +10,20 @@ class InformationEdit extends StatefulWidget {
 
   final Transaction transaction;
 
-  late DateTime dateValue = transaction.processDateTime;
+  late final EditInformationTemplate statusWidget = EditInformationTemplate(title: "Status", defaultValue: transaction.status.toUpperCase());
+  late final EditInformationTemplate titleWidget = EditInformationTemplate(title: "Title", defaultValue: transaction.title);
+  late final EditInformationTemplate messageWidget = EditInformationTemplate(title: "Message", defaultValue: transaction.message!);
+  late final EditDateTimeInformationTemplate dateWidget = EditDateTimeInformationTemplate(title: "Date", defaultValue: transaction.processDateTime);
+  late final EditInformationTemplate amountWidget = EditInformationTemplate(title: "Amount", defaultValue: "${transaction.amount} €");
+  late final EditInformationTemplate typeWidget = EditInformationTemplate(title: "Type", defaultValue: transaction.type.toUpperCase());
+  late final EditInformationTemplate merchantWidget = EditInformationTemplate(title: "Merchant", defaultValue: transaction.merchant);
 
   @override
   State<InformationEdit> createState() => _InformationEditState();
 
   void saveData(){
     //ToDo save data
-    print(dateValue.toString());
+    print(dateWidget.dateTime.toString());
   }
 }
 
@@ -32,23 +38,18 @@ class _InformationEditState extends State<InformationEdit> {
           child: Wrap(
             runSpacing: kDefaultPadding * 1.5,
             children: [
-              if(widget.transaction.status == "completed")
-                EditInformationTemplate(title: "Status", defaultValue: widget.transaction.status.toUpperCase())
-              else if (widget.transaction.status == "pending")
-                EditInformationTemplate(title: "Status", defaultValue: widget.transaction.status.toUpperCase())
-              else
-                EditInformationTemplate(title: "Status", defaultValue: widget.transaction.status.toUpperCase()),
-
-              EditInformationTemplate(title: "Title", defaultValue: widget.transaction.title),
+              widget.statusWidget,
+              widget.titleWidget,
 
               if (widget.transaction.message != null)
-                EditInformationTemplate(title: "Message", defaultValue: widget.transaction.message!),
+                widget.messageWidget,
 
-              EditDateTimeInformationTemplate(title: "Date", defaultValue: widget.transaction.processDateTime, informationEdit: widget,),
-              EditInformationTemplate(title: "Amount", defaultValue: "${widget.transaction.amount} €"),
-              EditInformationTemplate(title: "Type", defaultValue: widget.transaction.type.toUpperCase()),
+              widget.dateWidget,
+              widget.amountWidget,
+              widget.typeWidget,
+
               if(widget.transaction.type == "receipt")
-                EditInformationTemplate(title: "Merchant", defaultValue: widget.transaction.merchant),
+                widget.merchantWidget,
             ],
           ),
         ),

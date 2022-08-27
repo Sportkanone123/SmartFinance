@@ -10,22 +10,15 @@ import '../constants.dart';
 class EditInformationTemplate extends StatefulWidget {
   final String title;
   final String defaultValue;
+  late final TextEditingController textController = TextEditingController(text: defaultValue);
 
-  const EditInformationTemplate({Key? key, required this.title, required this.defaultValue}) : super(key: key);
+  EditInformationTemplate({Key? key, required this.title, required this.defaultValue}) : super(key: key);
 
   @override
   State<EditInformationTemplate> createState() => _EditInformationTemplateState();
 }
 
 class _EditInformationTemplateState extends State<EditInformationTemplate> {
-  late TextEditingController textController;
-
-
-  @override
-  void initState() {
-    super.initState();
-    textController = TextEditingController(text: widget.defaultValue);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +28,7 @@ class _EditInformationTemplateState extends State<EditInformationTemplate> {
         Expanded(child: Text(widget.title, style: const TextStyle(fontSize: 16, color: Color(0xFF84848A),),),),
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.6,
-          child: TextInput(textString: widget.title, textController: textController, obscureText: false),
+          child: TextInput(textString: widget.title, textController: widget.textController, obscureText: false),
         )
       ],
     );
@@ -46,9 +39,9 @@ class _EditInformationTemplateState extends State<EditInformationTemplate> {
 class EditDateTimeInformationTemplate extends StatefulWidget {
   final String title;
   final DateTime defaultValue;
-  InformationEdit informationEdit;
+  late DateTime dateTime = defaultValue;
 
-  EditDateTimeInformationTemplate({Key? key, required this.title, required this.defaultValue, required this.informationEdit}) : super(key: key);
+  EditDateTimeInformationTemplate({Key? key, required this.title, required this.defaultValue}) : super(key: key);
 
   @override
   State<EditDateTimeInformationTemplate> createState() => EditDateTimeInformationTemplateState();
@@ -73,7 +66,7 @@ class EditDateTimeInformationTemplateState extends State<EditDateTimeInformation
             DateTimePicker instance = DateTimePicker();
             DateTime dateTime = await instance.selectDateTime(context);
             setState(() {
-              widget.informationEdit.dateValue = dateTime;
+              widget.dateTime = dateTime;
             });
           },
           child: Container(
@@ -85,7 +78,7 @@ class EditDateTimeInformationTemplateState extends State<EditDateTimeInformation
               color: Color(0xFFE1E1E6),
             ),
             alignment: Alignment.centerLeft,
-            child: Text(DateFormat('dd MMMM yyyy, HH:mm').format(widget.informationEdit.dateValue), style: const TextStyle(color: Color(0xFF84848A), fontSize: 14),),
+            child: Text(DateFormat('dd MMMM yyyy, HH:mm').format(widget.dateTime), style: const TextStyle(color: Color(0xFF84848A), fontSize: 14),),
           ),
         )
       ],
