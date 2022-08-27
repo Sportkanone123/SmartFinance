@@ -2,13 +2,13 @@ import 'package:sqflite/sqflite.dart' hide Transaction;
 
 import '../objects/Transaction.dart';
 
-const String tableAccount = 'accounts_database';
+const String tableTransaction = 'transactions';
 const String columnId = 'id';
 const String columnTitle = 'title';
-const String columnType = 'type';
 const String columnMerchant = 'merchant';
 const String columnStatus = 'status';
 const String columnProcessDateTime = 'process_date_time';
+const String columnType = 'type';
 const String columnMessage = 'message';
 const String columnSpendingGoalId = 'spending_goal_id';
 const String columnAmount = 'amount';
@@ -21,15 +21,15 @@ class TransactionProvider {
     db = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
           await db.execute('''
-            create table $tableAccount (
+            create table $tableTransaction (
             $columnId integer primary key autoincrement,
             $columnTitle text not null,
-            $columnType text not null,
             $columnMerchant text not null,
             $columnStatus text not null,
             $columnProcessDateTime text not null,
+            $columnType text not null,
             $columnMessage text,
-            $columnSpendingGoalId int not null,
+            $columnSpendingGoalId integer,
             $columnAmount real not null,
             $columnPathToIcon text not null );
           ''');
@@ -37,13 +37,13 @@ class TransactionProvider {
   }
 
   Future<Transaction> insert(Transaction transaction) async {
-    transaction.id = await db!.insert(tableAccount, transaction.toMap());
+    transaction.id = await db!.insert(tableTransaction, transaction.toMap());
     return transaction;
   }
 
-  Future<Transaction?> getTodo(int id) async {
-    List<Map> maps = await db!.query(tableAccount,
-        columns: [columnId, columnTitle, columnType, columnMerchant, columnStatus, columnProcessDateTime, columnMessage, columnSpendingGoalId, columnAmount, columnPathToIcon],
+  Future<Transaction?> getTransaction(int id) async {
+    List<Map> maps = await db!.query(tableTransaction,
+        columns: [columnId, columnTitle, columnMerchant, columnStatus, columnProcessDateTime, columnType, columnMessage, columnSpendingGoalId, columnAmount, columnPathToIcon],
         where: '$columnId = ?',
         whereArgs: [id]);
     if (maps.isNotEmpty) {
@@ -52,16 +52,30 @@ class TransactionProvider {
     return null;
   }
 
+  Future<List<Transaction>> getTransactions() async {
+    List<Map> maps = await db!.query(tableTransaction,
+        columns: [columnId, columnTitle, columnMerchant, columnStatus, columnProcessDateTime, columnType, columnMessage, columnSpendingGoalId, columnAmount, columnPathToIcon],
+    );
+
+    List<Transaction> transactions = <Transaction>[];
+
+    for(Map map in maps){
+      transactions.add(Transaction.fromMap(map as Map<String, Object?>));
+    }
+
+    return transactions;
+  }
+
   Future<int> delete(int id) async {
-    return await db!.delete(tableAccount, where: '$columnId = ?', whereArgs: [id]);
+    return await db!.delete(tableTransaction, where: '$columnId = ?', whereArgs: [id]);
   }
 
   Future<void> clearTable() async {
-    return await db!.execute("DELETE FROM $tableAccount;");
+    return await db!.execute("DELETE FROM $tableTransaction;");
   }
 
   Future<int> update(Transaction transaction) async {
-    return await db!.update(tableAccount, transaction.toMap(),
+    return await db!.update(tableTransaction, transaction.toMap(),
         where: '$columnId = ?', whereArgs: [transaction.id]);
   }
 

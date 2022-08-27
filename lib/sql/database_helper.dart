@@ -4,14 +4,14 @@ import 'package:smart_finance/sql/provider/template_provider.dart';
 import 'package:smart_finance/sql/provider/transaction_provider.dart';
 
 class DatabaseHelper {
-  final AccountProvider _accountsProvider = AccountProvider();
-  final GoalProvider _goalsProvider = GoalProvider();
-  final TemplateProvider _templatesProvider = TemplateProvider();
-  final TransactionProvider _transactionsProvider = TransactionProvider();
+  static final AccountProvider _accountsProvider = AccountProvider();
+  static final GoalProvider _goalsProvider = GoalProvider();
+  static final TemplateProvider _templatesProvider = TemplateProvider();
+  static final TransactionProvider _transactionsProvider = TransactionProvider();
 
   DatabaseHelper();
 
-  Future<AccountProvider> getAccountProvider() async {
+  static Future<AccountProvider> getAccountProvider() async {
     if(_accountsProvider.isOpen()){
       return _accountsProvider;
     }else{
@@ -20,7 +20,7 @@ class DatabaseHelper {
     }
   }
 
-  Future<GoalProvider> getGoalsProvider() async {
+  static Future<GoalProvider> getGoalsProvider() async {
     if(_goalsProvider.isOpen()){
       return _goalsProvider;
     }else{
@@ -29,7 +29,7 @@ class DatabaseHelper {
     }
   }
 
-  Future<TemplateProvider> getTemplatesProvider() async {
+  static Future<TemplateProvider> getTemplatesProvider() async {
     if(_templatesProvider.isOpen()){
       return _templatesProvider;
     }else{
@@ -38,7 +38,7 @@ class DatabaseHelper {
     }
   }
 
-  Future<TransactionProvider> getTransactionsProvider() async {
+  static Future<TransactionProvider> getTransactionsProvider() async {
     if(_transactionsProvider.isOpen()){
       return _transactionsProvider;
     }else{
