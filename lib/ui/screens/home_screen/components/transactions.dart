@@ -19,8 +19,8 @@ class Transactions extends StatelessWidget {
       child: Wrap(
         runSpacing: kDefaultPadding * 1.5,
         children: [
-          TransactionTemplate(transaction: Transaction(1, "Salary payment", "receipt", "PayGoal GmbH", "completed", DateTime.now(), "Salary for January 2022", null, 7654.00, "assets/images/logo.png")),
-          TransactionTemplate(transaction: Transaction(2, "Dropbox Organization", "payment", "Myself", "pending", DateTime.now(), null, null, -89.99, "assets/images/logo.png")),
+          TransactionTemplate(transaction: Transaction(1, 1, "Salary payment", "receipt", "PayGoal GmbH", "completed", DateTime.now(), "Salary for January 2022", null, 7654.00, "assets/images/logo.png")),
+          TransactionTemplate(transaction: Transaction(2, 2, "Dropbox Organization", "payment", "Myself", "pending", DateTime.now(), null, null, -89.99, "assets/images/logo.png")),
         ],
       ),
     );
