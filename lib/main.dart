@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:smart_finance/sql/database_helper.dart';
 import 'package:smart_finance/sql/objects/Account.dart';
+import 'package:smart_finance/sql/objects/Transaction.dart';
 import 'package:smart_finance/ui/constants.dart';
 import 'package:smart_finance/ui/screens/home_screen/home_screen.dart';
 import 'package:smart_finance/ui/screens/login_screen/login_screen.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    //runTasks();
+    runTasks();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -40,9 +41,9 @@ class MyApp extends StatelessWidget {
   }
 
   Future<void> runTasks() async {
-    await DatabaseHelper().getAccountProvider().then((value) => value.clearTable());
-    await DatabaseHelper().getAccountProvider().then((value) => value.insert(Account(1, "Test Account", "master_card", "DE12345678910111213141", 13.59, 100.00, "/random/path/to/icon/icon.png", DateTime.now(), DateTime.now())));
-    await DatabaseHelper().getAccountProvider().then((value) => value.getTodo(1).then((value) => print(value!.balance.toString())));
+    await DatabaseHelper.getTransactionsProvider().then((value) => value.clearTable());
+    await DatabaseHelper.getTransactionsProvider().then((value) => value.insert(Transaction(1, "Salary payment", "receipt", "PayGoal GmbH", "completed", DateTime.now(), "Salary for January 2022", null, 7654.00, "assets/images/logo.png")));
+    await DatabaseHelper.getTransactionsProvider().then((value) => value.insert(Transaction(2, "Dropbox Organization", "payment", "Myself", "pending", DateTime.parse('2022-04-20 00:00:00Z'), null, null, -89.99, "assets/images/logo.png")));
   }
 }
 
