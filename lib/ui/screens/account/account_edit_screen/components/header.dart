@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:smart_finance/sql/objects/Transaction.dart';
 import 'package:smart_finance/ui/components/no_animation_material_page_router.dart';
-import 'package:smart_finance/ui/screens/home_screen/home_screen.dart';
-import 'package:smart_finance/ui/screens/transaction/transaction_edit_screen/components/information_edit.dart';
+import 'package:smart_finance/ui/screens/account/account_display_screen/account_display_screen.dart';
 
+import '../../../../../sql/objects/Account.dart';
 import '../../../../constants.dart';
-import '../../transaction_display_screen/transaction_display_screen.dart';
+import '../../../account/account_edit_screen/components/information_edit.dart';
 
 class Header extends StatelessWidget {
-  const Header({Key? key, required this.amount, required this.widget}) : super(key: key);
+  const Header({Key? key, required this.account, required this.widget}) : super(key: key);
 
-  final double amount;
+  final Account account;
   final InformationEdit widget;
 
   @override
@@ -23,16 +23,16 @@ class Header extends StatelessWidget {
           children: [
             InkWell(
               onTap: () async {
-                Transaction transaction = await widget.saveData();
+                Account account = await widget.saveData();
 
                 Navigator.pushReplacement(
                   context,
-                  NoAnimationMaterialPageRoute(builder: (context) => TransactionDisplayScreen(transaction: transaction)),
+                  NoAnimationMaterialPageRoute(builder: (context) => AccountDisplayScreen(account: account,)),
                 );
               },
               child: const Text("◀ Save", style: TextStyle(fontSize: 16, color: Colors.blue),),
             ),
-            Text(amount.toString(), style: const TextStyle(fontSize: 16, color: Color(0xFF84848A)),),
+            Text(account.title, style: const TextStyle(fontSize: 16, color: Color(0xFF84848A)),),
             InkWell(
               onTap: () {
                 Navigator.pop(context);

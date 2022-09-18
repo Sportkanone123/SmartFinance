@@ -19,7 +19,6 @@ class AccountProvider {
   Future open(String path) async {
     db = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
-          print("test");
           await db.execute('''
             create table $tableAccount ( 
             $columnId integer primary key autoincrement, 
@@ -49,6 +48,20 @@ class AccountProvider {
       return Account.fromMap(maps.first as Map<String, Object?>);
     }
     return null;
+  }
+
+  Future<List<Account>> getAccounts() async {
+    List<Map> maps = await db!.query(tableAccount,
+      columns: [columnId, columnTitle, columnType, columnAccountNumber, columnBalance, columnSpendLimit, columnPathToIcon, columnExpirationDate, columnLastUsed],
+    );
+
+    List<Account> accounts = <Account>[];
+
+    for(Map map in maps){
+      accounts.add(Account.fromMap(map as Map<String, Object?>));
+    }
+
+    return accounts;
   }
 
   Future<int> delete(int id) async {

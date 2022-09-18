@@ -4,6 +4,7 @@ import '../objects/Transaction.dart';
 
 const String tableTransaction = 'transactions';
 const String columnId = 'id';
+const String columnAccountId = 'account_id';
 const String columnTitle = 'title';
 const String columnMerchant = 'merchant';
 const String columnStatus = 'status';
@@ -23,6 +24,7 @@ class TransactionProvider {
           await db.execute('''
             create table $tableTransaction (
             $columnId integer primary key autoincrement,
+            $columnAccountId integer not null,
             $columnTitle text not null,
             $columnMerchant text not null,
             $columnStatus text not null,
@@ -43,7 +45,7 @@ class TransactionProvider {
 
   Future<Transaction?> getTransaction(int id) async {
     List<Map> maps = await db!.query(tableTransaction,
-        columns: [columnId, columnTitle, columnMerchant, columnStatus, columnProcessDateTime, columnType, columnMessage, columnSpendingGoalId, columnAmount, columnPathToIcon],
+        columns: [columnId, columnAccountId, columnTitle, columnMerchant, columnStatus, columnProcessDateTime, columnType, columnMessage, columnSpendingGoalId, columnAmount, columnPathToIcon],
         where: '$columnId = ?',
         whereArgs: [id]);
     if (maps.isNotEmpty) {
@@ -54,7 +56,7 @@ class TransactionProvider {
 
   Future<List<Transaction>> getTransactions() async {
     List<Map> maps = await db!.query(tableTransaction,
-        columns: [columnId, columnTitle, columnMerchant, columnStatus, columnProcessDateTime, columnType, columnMessage, columnSpendingGoalId, columnAmount, columnPathToIcon],
+        columns: [columnId, columnAccountId, columnTitle, columnMerchant, columnStatus, columnProcessDateTime, columnType, columnMessage, columnSpendingGoalId, columnAmount, columnPathToIcon],
     );
 
     List<Transaction> transactions = <Transaction>[];

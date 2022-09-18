@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smart_finance/sql/objects/Account.dart';
+import 'package:smart_finance/ui/screens/account/account_display_screen/account_display_screen.dart';
+
+import '../../components/no_animation_material_page_router.dart';
 
 class AccountTemplate extends StatelessWidget {
   final Account account;
@@ -26,7 +29,10 @@ class AccountTemplate extends StatelessWidget {
         ),
         InkWell(
           onTap: (){
-            //ToDo do something
+            Navigator.push(
+              context,
+              NoAnimationMaterialPageRoute(builder: (context) => AccountDisplayScreen(account: account)),
+            );
           },
           child: Container(
             height: 24,
