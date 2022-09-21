@@ -1,37 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:smart_finance/sql/objects/Account.dart';
+import 'package:smart_finance/ui/screens/account/account_add_screen/components/information_add.dart';
 
 import '../../../components/my_bottom_nav_bar.dart';
 import '../../../constants.dart';
-import 'components/information_edit.dart';
 import 'components/body.dart';
 import 'components/header.dart';
 
-class AccountEditScreen extends StatelessWidget {
-  const AccountEditScreen({Key? key, required this.account}) : super(key: key);
-
-  final Account account;
+class AccountAddScreen extends StatelessWidget {
+  const AccountAddScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(context) {
-    InformationEdit informationEdit = InformationEdit(account: account);
+    InformationAdd informationAdd = InformationAdd();
 
     return Scaffold(
-      appBar: buildAppBar(context, informationEdit),
-      body:  Body(account: account, widget: informationEdit),
+      appBar: buildAppBar(context, informationAdd),
+      body:  Body(widget: informationAdd),
       bottomNavigationBar: const MyBottomNavBar(selected: 1,),
       backgroundColor: kBackgroundColor,
     );
   }
 
-  AppBar buildAppBar(BuildContext context, InformationEdit informationEdit) {
+  AppBar buildAppBar(BuildContext context, InformationAdd informationAdd) {
     return AppBar(
       toolbarHeight: 55,
       elevation: 0,
       flexibleSpace: Column(
         children: <Widget>[
           SizedBox(height: MediaQuery.of(context).size.width * 0.1,),
-          Header(account: account, widget: informationEdit),
+          Header(widget: informationAdd),
         ],
       ),
       backgroundColor: const Color(0xFFFAFAFA),

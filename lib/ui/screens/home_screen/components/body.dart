@@ -14,10 +14,10 @@ class Body extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Column(
-        children: <Widget>[
-          MyAccount(size: size),
-          Transactions(size: size),
-          Options(size: size),
+        children: const <Widget>[
+          MyAccount(),
+          Transactions(),
+          //Options(size: size), TODO Add options for fast access.
         ],
       ),
     );

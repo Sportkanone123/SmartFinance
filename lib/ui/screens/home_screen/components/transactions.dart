@@ -1,15 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:smart_finance/sql/objects/Transaction.dart';
 
+import '../../../../sql/database_helper.dart';
+import '../../../../sql/objects/Transaction.dart';
+import '../../../../sql/provider/transaction_provider.dart';
 import '../../../constants.dart';
 import '../../../templates/page_entry_template.dart';
 import '../../../templates/transaction/transaction_template.dart';
 import '../../transaction/transactions_screen/transactions_screen.dart';
 
-class Transactions extends StatelessWidget {
-  const Transactions({Key? key, required this.size}) : super(key: key);
+class Transactions extends StatefulWidget {
+  const Transactions({Key? key}) : super(key: key);
 
-  final Size size;
+  @override
+  State<Transactions> createState() => _TransactionsState();
+}
+
+class _TransactionsState extends State<Transactions> {
+  late List<Transaction> transactions = <Transaction>[];
+  late List<Widget> widgetsToDisplay = <Widget>[];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadValuesFromDatabase();
+  }
+
+  Future<void> _loadValuesFromDatabase() async {
+    TransactionProvider provider =
+    await DatabaseHelper.getTransactionsProvider();
+
+    List<Transaction> transactions = await provider.getTransactions();
+
+    List<Widget> widgetsToDisplay = <Widget>[];
+
+    for (Transaction transaction in transactions) {
+      widgetsToDisplay.add(TransactionTemplate(transaction: transaction,));
+    }
+
+    setState(() {
+      this.transactions = transactions;
+      this.widgetsToDisplay = widgetsToDisplay;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +50,9 @@ class Transactions extends StatelessWidget {
       extendWidget: const TransactionsScreen(),
       child: Wrap(
         runSpacing: kDefaultPadding * 1.5,
-        children: [
-          TransactionTemplate(transaction: Transaction(1, 1, "Salary payment", "receipt", "PayGoal GmbH", "completed", DateTime.now(), "Salary for January 2022", null, 7654.00, "assets/images/logo.png")),
-          TransactionTemplate(transaction: Transaction(2, 2, "Dropbox Organization", "payment", "Myself", "pending", DateTime.now(), null, null, -89.99, "assets/images/logo.png")),
-        ],
+        children: widgetsToDisplay,
       ),
     );
   }
 }
+

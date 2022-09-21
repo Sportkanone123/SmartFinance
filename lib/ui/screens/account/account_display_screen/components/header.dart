@@ -32,7 +32,7 @@ class Header extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  NoAnimationMaterialPageRoute(builder: (context) => InformationEditScreen(account: account)),
+                  NoAnimationMaterialPageRoute(builder: (context) => AccountEditScreen(account: account)),
                 );
               },
               child: const Text("Edit ▶", style: TextStyle(fontSize: 16, color: Colors.blue),),
