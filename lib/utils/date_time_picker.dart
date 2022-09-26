@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class DateTimePicker {
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay.now();
@@ -8,17 +9,18 @@ class DateTimePicker {
 
     final date = await _selectDate(context);
 
-    final time = await _selectTime(context);
+    //final time = await _selectTime(context);
 
-    dateTime = DateTime(
+    /*dateTime = DateTime(
       date.year,
       date.month,
       date.day,
       time.hour,
       time.minute,
-    );
+    );*/
 
-    return dateTime;
+    return DateTime.now();
+    //return dateTime;
   }
 
   Future<DateTime> _selectDate(BuildContext context) async {
@@ -27,6 +29,10 @@ class DateTimePicker {
       initialDate: selectedDate,
       firstDate: DateTime(2000),
       lastDate: DateTime(2025),
+      keyboardType: TextInputType.none,
+      initialDatePickerMode: DatePickerMode.year,
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
+
     );
     if (selected != null && selected != selectedDate) {
       selectedDate = selected;

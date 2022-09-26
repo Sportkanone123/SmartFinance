@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:smart_finance/sql/provider/account_provider.dart';
 import 'package:smart_finance/ui/templates/page_entry_template.dart';
 
@@ -16,8 +17,8 @@ class InformationAdd extends StatefulWidget {
   late final EditInformationTemplate accountNumberWidget = EditInformationTemplate(title: "Account Number", defaultValue: "");
   late final EditInformationTemplate balanceWidget = EditInformationTemplate(title: "Balance", defaultValue: "0 €");
   late final EditInformationTemplate limitWidget = EditInformationTemplate(title: "Limit", defaultValue: "0 €");
-  late final EditDateTimeInformationTemplate expirationDateWidget = EditDateTimeInformationTemplate(title: "Expiration date", defaultValue: DateTime.now());
-  late final EditDateTimeInformationTemplate lastUsedWidget = EditDateTimeInformationTemplate(title: "Last Used", defaultValue: DateTime.now());
+  late final EditInformationTemplate expirationDateWidget = EditInformationTemplate(title: "Expiration date", defaultValue: DateFormat('dd.MM.yyyy, HH:mm').format(DateTime.now()));
+  late final EditInformationTemplate lastUsedWidget = EditInformationTemplate(title: "Last Used", defaultValue: DateFormat('dd.MM.yyyy, HH:mm').format(DateTime.now()));
 
   @override
   State<InformationAdd> createState() => _InformationAddState();
@@ -26,14 +27,14 @@ class InformationAdd extends StatefulWidget {
     AccountProvider provider = await DatabaseHelper.getAccountProvider();
     Account temp = Account(
       null,
-      titleWidget.textController.value.text,
-      typeWidget.textController.value.text,
-      accountNumberWidget.textController.value.text,
-      double.parse(balanceWidget.textController.value.text.replaceAll(" €", "")),
-      double.parse(limitWidget.textController.value.text.replaceAll(" €", "")),
+      titleWidget.getController().value.text,
+      typeWidget.getController().value.text,
+      accountNumberWidget.getController().value.text,
+      double.parse(balanceWidget.getController().value.text.replaceAll(" €", "")),
+      double.parse(limitWidget.getController().value.text.replaceAll(" €", "")),
       "assets/images/logo.png",
-      expirationDateWidget.dateTime,
-      lastUsedWidget.dateTime,
+      DateFormat('dd.MM.yyyy, HH:mm').parse(expirationDateWidget.textController.value.text),
+      DateFormat('dd.MM.yyyy, HH:mm').parse(lastUsedWidget.textController.value.text),
     );
 
     await provider.insert(temp);

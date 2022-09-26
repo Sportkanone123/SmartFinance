@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_finance/ui/screens/transaction/transaction_edit_screen/components/information_edit.dart';
@@ -7,18 +8,28 @@ import 'package:smart_finance/utils/date_time_picker.dart';
 
 import '../constants.dart';
 
+
 class EditInformationTemplate extends StatefulWidget {
+  late final TextEditingController textController = TextEditingController(text: defaultValue);
+
   final String title;
   final String defaultValue;
-  late final TextEditingController textController = TextEditingController(text: defaultValue);
 
   EditInformationTemplate({Key? key, required this.title, required this.defaultValue}) : super(key: key);
 
   @override
   State<EditInformationTemplate> createState() => _EditInformationTemplateState();
+
+  TextEditingController getController(){
+    return textController;
+  }
 }
 
 class _EditInformationTemplateState extends State<EditInformationTemplate> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +39,7 @@ class _EditInformationTemplateState extends State<EditInformationTemplate> {
         Expanded(child: Text(widget.title, style: const TextStyle(fontSize: 16, color: Color(0xFF84848A),),),),
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.6,
-          child: TextInput(textString: widget.title, textController: widget.textController, obscureText: false),
+          child: TextInput(textString: widget.title, textController: widget.textController, obscureText: false, ),
         )
       ],
     );
@@ -37,15 +48,19 @@ class _EditInformationTemplateState extends State<EditInformationTemplate> {
 
 
 class EditDateTimeInformationTemplate extends StatefulWidget {
+  late final TextEditingController textController = TextEditingController(text: defaultValue);
+
   final String title;
-  final DateTime defaultValue;
-  late DateTime dateTime = defaultValue;
+  final String defaultValue;
 
   EditDateTimeInformationTemplate({Key? key, required this.title, required this.defaultValue}) : super(key: key);
 
   @override
   State<EditDateTimeInformationTemplate> createState() => EditDateTimeInformationTemplateState();
 
+  TextEditingController getController(){
+    return textController;
+  }
 }
 
 class EditDateTimeInformationTemplateState extends State<EditDateTimeInformationTemplate> {
@@ -61,13 +76,10 @@ class EditDateTimeInformationTemplateState extends State<EditDateTimeInformation
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(child: Text(widget.title, style: const TextStyle(fontSize: 16, color: Color(0xFF84848A),),),),
-        InkWell(
-          onTap: () async {
+        GestureDetector(
+          onTap: () {
             DateTimePicker instance = DateTimePicker();
-            DateTime dateTime = await instance.selectDateTime(context);
-            setState(() {
-              widget.dateTime = dateTime;
-            });
+            instance.selectDateTime(context);
           },
           child: Container(
             height: 32,
@@ -78,7 +90,7 @@ class EditDateTimeInformationTemplateState extends State<EditDateTimeInformation
               color: Color(0xFFE1E1E6),
             ),
             alignment: Alignment.centerLeft,
-            child: Text(DateFormat('dd MMMM yyyy, HH:mm').format(widget.dateTime), style: const TextStyle(color: Color(0xFF84848A), fontSize: 14),),
+            child: Text(DateFormat('dd MMMM yyyy, HH:mm').format(DateTime.parse(widget.textController.value.text)), style: const TextStyle(color: Color(0xFF84848A), fontSize: 14),),
           ),
         )
       ],
@@ -90,7 +102,6 @@ class TextInput extends StatelessWidget {
   final String textString;
   final TextEditingController textController;
   final bool obscureText;
-
 
   const TextInput(
       {Key? key,
@@ -114,8 +125,10 @@ class TextInput extends StatelessWidget {
           maxLines: 1,
           cursorColor: kBackgroundColor,
           controller: textController,
-          keyboardType: TextInputType.text,
+          keyboardType: TextInputType.name,
           obscureText: obscureText,
+          autocorrect: false,
+          showCursor: false,
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: textString,
@@ -124,6 +137,7 @@ class TextInput extends StatelessWidget {
                 fontSize: 14,
                 fontWeight: FontWeight.normal),
           ),
+          textInputAction: TextInputAction.none,
         ));
   }
 }

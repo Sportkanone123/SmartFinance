@@ -4,6 +4,7 @@ import 'package:smart_finance/ui/screens/account/account_add_screen/components/i
 import 'package:smart_finance/ui/screens/account/account_display_screen/account_display_screen.dart';
 
 import '../../../../../sql/objects/Account.dart';
+import '../../../../../utils/authentication.dart';
 import '../../../../constants.dart';
 import '../../../account/account_edit_screen/components/information_edit.dart';
 
@@ -22,12 +23,28 @@ class Header extends StatelessWidget {
           children: [
             InkWell(
               onTap: () async {
-                Account account = await widget.saveData();
+                if(widget.accountNumberWidget.textController.value.text.isEmpty
+                    || widget.balanceWidget .textController.value.text.isEmpty
+                    || widget.expirationDateWidget.textController.value.text.isEmpty
+                    || widget.lastUsedWidget.textController.value.text.isEmpty
+                    || widget.limitWidget.textController.value.text.isEmpty
+                    || widget.accountNumberWidget.textController.value.text.isEmpty
+                    || widget.titleWidget.textController.value.text.isEmpty
+                    || widget.typeWidget.textController.value.text.isEmpty){
 
-                Navigator.pushReplacement(
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    Authentication.customSnackBar(
+                      content: 'Please fill out all fields!',
+                    ),
+                  );
+
+                  return;
+                }
+
+                widget.saveData().then((value) => Navigator.pushReplacement(
                   context,
-                  NoAnimationMaterialPageRoute(builder: (context) => AccountDisplayScreen(account: account,)),
-                );
+                  NoAnimationMaterialPageRoute(builder: (context) => AccountDisplayScreen(account: value,)),
+                ));
               },
               child: const Text("◀ Save", style: TextStyle(fontSize: 16, color: Colors.blue),),
             ),

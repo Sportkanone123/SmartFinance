@@ -189,3 +189,4 @@ class PageEntryWithBalance extends StatelessWidget {
     );
   }
 }
+

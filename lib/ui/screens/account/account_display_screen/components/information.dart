@@ -15,6 +15,7 @@ class Information extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         PageEntrySmallTitle(
           title: "INFORMATION",

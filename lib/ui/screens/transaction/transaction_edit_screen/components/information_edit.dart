@@ -15,7 +15,7 @@ class InformationEdit extends StatefulWidget {
   late final EditInformationTemplate statusWidget = EditInformationTemplate(title: "Status", defaultValue: transaction.status.toUpperCase());
   late final EditInformationTemplate titleWidget = EditInformationTemplate(title: "Title", defaultValue: transaction.title);
   late final EditInformationTemplate messageWidget = EditInformationTemplate(title: "Message", defaultValue: transaction.message!);
-  late final EditDateTimeInformationTemplate dateWidget = EditDateTimeInformationTemplate(title: "Date", defaultValue: transaction.processDateTime);
+  late final EditDateTimeInformationTemplate dateWidget = EditDateTimeInformationTemplate(title: "Date", defaultValue: transaction.processDateTime.toIso8601String());
   late final EditInformationTemplate amountWidget = EditInformationTemplate(title: "Amount", defaultValue: "${transaction.amount} €");
   late final EditInformationTemplate typeWidget = EditInformationTemplate(title: "Type", defaultValue: transaction.type.toUpperCase());
   late final EditInformationTemplate merchantWidget = EditInformationTemplate(title: "Merchant", defaultValue: transaction.merchant);
@@ -28,14 +28,14 @@ class InformationEdit extends StatefulWidget {
     Transaction temp = Transaction(
         transaction.id,
         transaction.accountId,
-        titleWidget.textController.value.text,
-        typeWidget.textController.value.text,
-        merchantWidget.textController.value.text,
-        statusWidget.textController.value.text,
-        dateWidget.dateTime,
-        messageWidget.textController.value.text,
+        titleWidget.getController().value.text,
+        typeWidget.getController().value.text,
+        merchantWidget.getController().value.text,
+        statusWidget.getController().value.text,
+        DateTime.parse(dateWidget.getController().value.text),
+        messageWidget.getController().value.text,
         transaction.spendingGoalId,
-        double.parse(amountWidget.textController.value.text.replaceAll(" €", "")),
+        double.parse(amountWidget.getController().value.text.replaceAll(" €", "")),
         transaction.pathToIcon
     );
 

@@ -30,7 +30,7 @@ class Header extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.pushReplacement(
+                    Navigator.push(
                       context,
                       NoAnimationMaterialPageRoute(builder: (context) => const AccountAddScreen()),
                     );

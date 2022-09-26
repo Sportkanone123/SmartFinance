@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:smart_finance/sql/provider/account_provider.dart';
 import 'package:smart_finance/sql/provider/transaction_provider.dart';
 import 'package:smart_finance/ui/templates/page_entry_template.dart';
@@ -19,8 +20,8 @@ class InformationEdit extends StatefulWidget {
   late final EditInformationTemplate accountNumberWidget = EditInformationTemplate(title: "Account Number", defaultValue: account.accountNumber);
   late final EditInformationTemplate balanceWidget = EditInformationTemplate(title: "Balance", defaultValue: "${account.balance} €");
   late final EditInformationTemplate limitWidget = EditInformationTemplate(title: "Limit", defaultValue: "${account.spendLimit} €");
-  late final EditDateTimeInformationTemplate expirationDateWidget = EditDateTimeInformationTemplate(title: "Expiration date", defaultValue: account.expirationDate);
-  late final EditDateTimeInformationTemplate lastUsedWidget = EditDateTimeInformationTemplate(title: "Last Used", defaultValue: account.lastUsed);
+  late final EditInformationTemplate expirationDateWidget = EditInformationTemplate(title: "Expiration date", defaultValue: DateFormat('dd.MM.yyyy, HH:mm').format(account.expirationDate));
+  late final EditInformationTemplate lastUsedWidget = EditInformationTemplate(title: "Last Used", defaultValue: DateFormat('dd.MM.yyyy, HH:mm').format(account.lastUsed));
 
   @override
   State<InformationEdit> createState() => _InformationEditState();
@@ -29,14 +30,14 @@ class InformationEdit extends StatefulWidget {
     AccountProvider provider = await DatabaseHelper.getAccountProvider();
     Account temp = Account(
         account.id,
-        titleWidget.textController.value.text,
-        typeWidget.textController.value.text,
-        accountNumberWidget.textController.value.text,
-        double.parse(balanceWidget.textController.value.text.replaceAll(" €", "")),
-        double.parse(limitWidget.textController.value.text.replaceAll(" €", "")),
+        titleWidget.getController().value.text,
+        typeWidget.getController().value.text,
+        accountNumberWidget.getController().value.text,
+        double.parse(balanceWidget.getController().value.text.replaceAll(" €", "")),
+        double.parse(limitWidget.getController().value.text.replaceAll(" €", "")),
         account.pathToIcon,
-        expirationDateWidget.dateTime,
-        lastUsedWidget.dateTime,
+        DateFormat('dd.MM.yyyy, HH:mm').parse(expirationDateWidget.textController.value.text),
+        DateFormat('dd.MM.yyyy, HH:mm').parse(lastUsedWidget.textController.value.text),
     );
 
     await provider.update(temp);
