@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:smart_finance/ui/screens/transaction/transaction_display_screen/transaction_display_screen.dart';
 
 import '../../../sql/objects/Transaction.dart';
@@ -38,7 +39,7 @@ class TransactionTemplate extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 2,),
-                Text(transaction.processDateTime.toString(), style: const TextStyle(fontSize: 12, color: Color(0xFF84848A),),),
+                Text(DateFormat('dd MMMM yyyy, HH:mm').format(transaction.processDateTime), style: const TextStyle(fontSize: 12, color: Color(0xFF84848A),),),
               ],
             ),
           ),

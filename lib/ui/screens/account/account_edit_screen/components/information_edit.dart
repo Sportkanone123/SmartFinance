@@ -7,8 +7,10 @@ import 'package:smart_finance/ui/templates/page_entry_template.dart';
 import '../../../../../sql/database_helper.dart';
 import '../../../../../sql/objects/Account.dart';
 import '../../../../../sql/objects/Transaction.dart';
+import '../../../../components/no_animation_material_page_router.dart';
 import '../../../../constants.dart';
 import '../../../../templates/edit_information_template.dart';
+import '../../account_display_screen/account_display_screen.dart';
 
 class InformationEdit extends StatefulWidget {
   InformationEdit({Key? key, required this.account}) : super(key: key);
@@ -26,7 +28,7 @@ class InformationEdit extends StatefulWidget {
   @override
   State<InformationEdit> createState() => _InformationEditState();
 
-  Future<Account> saveData() async {
+  Future<void> saveData(BuildContext context) async {
     AccountProvider provider = await DatabaseHelper.getAccountProvider();
     Account temp = Account(
         account.id,
@@ -40,9 +42,10 @@ class InformationEdit extends StatefulWidget {
         DateFormat('dd.MM.yyyy, HH:mm').parse(lastUsedWidget.textController.value.text),
     );
 
-    await provider.update(temp);
-
-    return(temp);
+    provider.update(temp).then((value) => Navigator.pushReplacement(
+      context,
+      NoAnimationMaterialPageRoute(builder: (context) => AccountDisplayScreen(account: temp,)),
+    ));
   }
 }
 

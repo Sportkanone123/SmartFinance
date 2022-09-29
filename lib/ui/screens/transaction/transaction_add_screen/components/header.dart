@@ -4,6 +4,7 @@ import 'package:smart_finance/ui/screens/transaction/transaction_display_screen/
 
 import '../../../../../sql/objects/Account.dart';
 import '../../../../../sql/objects/Transaction.dart';
+import '../../../../../utils/authentication.dart';
 import '../../../../constants.dart';
 import '../../../account/account_edit_screen/components/information_edit.dart';
 import 'information_add.dart';
@@ -23,12 +24,27 @@ class Header extends StatelessWidget {
           children: [
             InkWell(
               onTap: () async {
-                Transaction transaction = await widget.saveData();
+                if(widget.accountIDWidget.textController.value.text.isEmpty
+                    || widget.statusWidget .textController.value.text.isEmpty
+                    || widget.titleWidget.textController.value.text.isEmpty
+                    || widget.processDateWidget.textController.value.text.isEmpty
+                    || widget.amountWidget.textController.value.text.isEmpty
+                    || widget.typeWidget.textController.value.text.isEmpty
+                    || widget.merchantWidget.textController.value.text.isEmpty){
 
-                Navigator.pushReplacement(
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    Authentication.customSnackBar(
+                      content: 'Please fill out all fields!',
+                    ),
+                  );
+
+                  return;
+                }
+
+                widget.saveData().then((value) => Navigator.pushReplacement(
                   context,
-                  NoAnimationMaterialPageRoute(builder: (context) => TransactionDisplayScreen(transaction: transaction,)),
-                );
+                  NoAnimationMaterialPageRoute(builder: (context) => TransactionDisplayScreen(transaction: value,)),
+                ));
               },
               child: const Text("◀ Save", style: TextStyle(fontSize: 16, color: Colors.blue),),
             ),

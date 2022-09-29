@@ -74,7 +74,7 @@ class AccountProvider {
 
   Future<int> update(Account account) async {
     return await db!.update(tableAccount, account.toMap(),
-        where: '$columnId = ?', whereArgs: [account.id]);
+        where: "$columnId = ?", whereArgs: [account.id]);
   }
 
   Future close() async => db!.close();

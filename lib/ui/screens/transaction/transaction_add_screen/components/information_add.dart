@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:smart_finance/ui/templates/page_entry_template.dart';
 
 import '../../../../../sql/database_helper.dart';
@@ -17,7 +18,7 @@ class InformationAdd extends StatefulWidget {
   late final EditInformationTemplate statusWidget = EditInformationTemplate(title: "Status", defaultValue: "");
   late final EditInformationTemplate titleWidget = EditInformationTemplate(title: "Title", defaultValue: "");
   late final EditInformationTemplate messageWidget = EditInformationTemplate(title: "Message", defaultValue: "");
-  late final EditDateTimeInformationTemplate processDateWidget = EditDateTimeInformationTemplate(title: "Date", defaultValue: DateTime.now().toIso8601String());
+  late final EditInformationTemplate processDateWidget = EditInformationTemplate(title: "Date", defaultValue: DateFormat('dd.MM.yyyy, HH:mm').format(DateTime.now()));
   late final EditInformationTemplate amountWidget = EditInformationTemplate(title: "Amount", defaultValue: "0 €");
   late final EditInformationTemplate typeWidget = EditInformationTemplate(title: "Type", defaultValue: "");
   late final EditInformationTemplate merchantWidget = EditInformationTemplate(title: "Merchant", defaultValue: "");
@@ -34,7 +35,7 @@ class InformationAdd extends StatefulWidget {
       typeWidget.getController().value.text,
       merchantWidget.getController().text,
       statusWidget.getController().value.text,
-      DateTime.parse(processDateWidget.textController.value.text),
+      DateFormat('dd.MM.yyyy, HH:mm').parse(processDateWidget.textController.value.text),
       (messageWidget != "")
         ? messageWidget.getController().value.text
         : null,

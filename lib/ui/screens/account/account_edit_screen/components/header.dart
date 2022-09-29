@@ -42,10 +42,7 @@ class Header extends StatelessWidget {
                   return;
                 }
 
-                widget.saveData().then((value) => Navigator.pushReplacement(
-                  context,
-                  NoAnimationMaterialPageRoute(builder: (context) => AccountDisplayScreen(account: account,)),
-                )) ;
+                widget.saveData(context);
               },
               child: const Text("◀ Save", style: TextStyle(fontSize: 16, color: Colors.blue),),
             ),

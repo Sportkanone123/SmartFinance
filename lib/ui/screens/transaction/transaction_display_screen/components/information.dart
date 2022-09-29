@@ -29,7 +29,7 @@ class Information extends StatelessWidget {
 
               InformationTemplate(title: "Title", value: transaction.title),
 
-              if (transaction.message != null)
+              if (transaction.message != null && transaction.message!.isNotEmpty)
                 InformationTemplate(title: "Message", value: transaction.message!),
 
               InformationTemplate(title: "Date", value: DateFormat('dd MMMM yyyy, HH:mm').format(transaction.processDateTime)),

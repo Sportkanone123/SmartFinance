@@ -4,6 +4,7 @@ import 'package:smart_finance/ui/components/no_animation_material_page_router.da
 import 'package:smart_finance/ui/screens/home_screen/home_screen.dart';
 import 'package:smart_finance/ui/screens/transaction/transaction_edit_screen/components/information_edit.dart';
 
+import '../../../../../utils/authentication.dart';
 import '../../../../constants.dart';
 import '../../transaction_display_screen/transaction_display_screen.dart';
 
@@ -23,12 +24,23 @@ class Header extends StatelessWidget {
           children: [
             InkWell(
               onTap: () async {
-                Transaction transaction = await widget.saveData();
+                if(widget.statusWidget .textController.value.text.isEmpty
+                    || widget.titleWidget.textController.value.text.isEmpty
+                    || widget.processDateWidget.textController.value.text.isEmpty
+                    || widget.amountWidget.textController.value.text.isEmpty
+                    || widget.typeWidget.textController.value.text.isEmpty
+                    || widget.merchantWidget.textController.value.text.isEmpty){
 
-                Navigator.pushReplacement(
-                  context,
-                  NoAnimationMaterialPageRoute(builder: (context) => TransactionDisplayScreen(transaction: transaction)),
-                );
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    Authentication.customSnackBar(
+                      content: 'Please fill out all fields!',
+                    ),
+                  );
+
+                  return;
+                }
+
+                widget.saveData(context);
               },
               child: const Text("◀ Save", style: TextStyle(fontSize: 16, color: Colors.blue),),
             ),

@@ -34,7 +34,10 @@ class Header extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pushReplacement(
+                  context,
+                  NoAnimationMaterialPageRoute(builder: (context) => const MyAccountsScreen()),
+                );
               },
               child: const Text("◀ Back", style: TextStyle(fontSize: 16, color: Colors.blue),),
             ),
