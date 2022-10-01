@@ -42,7 +42,7 @@ class InformationEdit extends StatefulWidget {
         transaction.pathToIcon
     );
 
-    await provider.update(temp).then((value) => Navigator.pushReplacement(
+    await provider.update(temp, (transaction.amount - temp.amount)).then((value) => Navigator.pushReplacement(
       context,
       NoAnimationMaterialPageRoute(builder: (context) => TransactionDisplayScreen(transaction: temp,)),
     ));

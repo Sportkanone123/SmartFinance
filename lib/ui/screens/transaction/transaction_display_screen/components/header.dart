@@ -18,7 +18,7 @@ class Header extends StatelessWidget {
     TransactionProvider provider =
     await DatabaseHelper.getTransactionsProvider();
 
-    provider.delete(transaction.id!);
+    provider.delete(transaction);
   }
 
   @override

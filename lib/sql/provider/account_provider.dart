@@ -1,6 +1,9 @@
+
+
 import 'package:sqflite/sqflite.dart';
 
 import '../objects/Account.dart';
+import '../objects/Transaction.dart' as transaction;
 
 const String tableAccount = 'accounts';
 const String columnId = 'id';
@@ -64,6 +67,25 @@ class AccountProvider {
     return accounts;
   }
 
+  Future<List<Account>> getAccountsByKeyword(String keyword) async {
+    keyword.replaceAll(" ", "%");
+    keyword = "%$keyword%";
+
+    List<Map> maps = await db!.query(tableAccount,
+        columns: [columnId, columnTitle, columnType, columnAccountNumber, columnBalance, columnSpendLimit, columnPathToIcon, columnExpirationDate, columnLastUsed],
+        where: '$columnTitle LIKE ?, $columnType LIKE ?, $columnLastUsed LIKE ?, $columnAccountNumber LIKE ?, $columnBalance LIKE ?',
+        whereArgs: [keyword, keyword, keyword, keyword, keyword],
+    );
+
+    List<Account> accounts = <Account>[];
+
+    for(Map map in maps){
+      accounts.add(Account.fromMap(map as Map<String, Object?>));
+    }
+
+    return accounts;
+  }
+
   Future<int> delete(int id) async {
     return await db!.delete(tableAccount, where: '$columnId = ?', whereArgs: [id]);
   }
@@ -75,6 +97,10 @@ class AccountProvider {
   Future<int> update(Account account) async {
     return await db!.update(tableAccount, account.toMap(),
         where: "$columnId = ?", whereArgs: [account.id]);
+  }
+
+  Future<void> modifyBalance(transaction.Transaction transaction, double amount) async {
+    db!.execute("UPDATE $tableAccount SET $columnBalance = $columnBalance + $amount WHERE $columnId = ${transaction.accountId}");
   }
 
   Future close() async => db!.close();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_finance/sql/objects/Account.dart';
+import 'package:smart_finance/ui/screens/transaction/transactions_by_account_screen/transactions_by_account_screen.dart';
 import 'package:smart_finance/ui/templates/page_entry_template.dart';
 import 'package:smart_finance/utils/date_helpers.dart';
 
@@ -51,7 +52,7 @@ class _PaymentHistoryState extends State<PaymentHistory> {
   Widget build(BuildContext context) {
     return PageEntrySmallTitleExtendOption(
       title: "HISTORY",
-      extendWidget: Container(),
+      extendWidget: TransactionsByAccountScreen(account: widget.account,),
       child: Wrap(
         runSpacing: kDefaultPadding * 1.5,
         children: widgetsToDisplay,

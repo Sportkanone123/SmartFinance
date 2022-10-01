@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:smart_finance/sql/objects/Account.dart';
 import 'package:smart_finance/sql/provider/transaction_provider.dart';
 import 'package:smart_finance/ui/templates/page_entry_template.dart';
 import 'package:smart_finance/utils/date_helpers.dart';
 
 import '../../../../../sql/database_helper.dart';
+import '../../../../../sql/objects/Account.dart';
 import '../../../../../sql/objects/Transaction.dart';
 import '../../../../constants.dart';
 import '../../../../templates/transaction/transaction_template.dart';
 
 class TransactionsDisplay extends StatefulWidget {
-  const TransactionsDisplay({Key? key}) : super(key: key);
+  const TransactionsDisplay({Key? key, required this.account}) : super(key: key);
+
+  final Account account;
+
   @override
   State<TransactionsDisplay> createState() => TransactionsDisplayState();
 }
@@ -31,7 +34,7 @@ class TransactionsDisplayState extends State<TransactionsDisplay> {
     TransactionProvider provider =
         await DatabaseHelper.getTransactionsProvider();
 
-    List<Transaction> transactions = await provider.getTransactions(1000);
+    List<Transaction> transactions = await provider.getTransactionsByAccountID(widget.account.id!, 1000);
 
     Map<DateTime, List<Transaction>> sortedByDate =
         <DateTime, List<Transaction>>{};

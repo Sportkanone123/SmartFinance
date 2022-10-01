@@ -21,6 +21,10 @@ void main() {
 }
 
 Future<void> runTasks() async {
+  await DatabaseHelper.getAccountProvider().then((value) => value.clearTable());
+  await DatabaseHelper.getAccountProvider().then((value) => value.insert(Account(1, "Private Account", "master_card", "DE12 1234 5678 91 	", 0, 5000, "assets/images/logo.png", DateTime.parse('22022-08-06 04:22:04'), DateTime.parse('2022-02-14 10:59:00'))));
+  await DatabaseHelper.getAccountProvider().then((value) => value.insert(Account(2, "Work Account", "credit_card", "EN98 9876 5432 10", 0, 8250, "assets/images/logo.png", DateTime.parse('2022-08-28 16:44:23'), DateTime.parse('2022-02-23 02:21:43'))));
+
   await DatabaseHelper.getTransactionsProvider().then((value) => value.clearTable());
   await DatabaseHelper.getTransactionsProvider().then((value) => value.insert(Transaction(1, 1, "Amazon Order", "payment", "Amazon GmbH", "completed", DateTime.parse('2022-01-14 22:52:13Z'), "Rechnung: #723s4A", null, -149.99, "assets/images/logo.png")));
   await DatabaseHelper.getTransactionsProvider().then((value) => value.insert(Transaction(2, 1, "Salary", "receipt", "ABC Media GmbH", "pending", DateTime.parse('2022-01-01 20:41:01Z'), "January 2022", null, 7563.00, "assets/images/logo.png")));
@@ -31,10 +35,6 @@ Future<void> runTasks() async {
   await DatabaseHelper.getTransactionsProvider().then((value) => value.insert(Transaction(7, 2, "Meeting Room", "payment", "OpenSpace GmbH", "completed", DateTime.parse('2022-01-17 12:49:58Z'), "Trans. ID: 7F78gd7", null, -899.99, "assets/images/logo.png")));
   await DatabaseHelper.getTransactionsProvider().then((value) => value.insert(Transaction(8, 2, "IBM Center", "payment", "IBM GmbH", "complete", DateTime.parse('2022-02-23 02:21:43Z'), "#245g45", null, -199.99, "assets/images/logo.png")));
   await DatabaseHelper.getTransactionsProvider().then((value) => value.insert(Transaction(9, 2, "Payback", "receipt", "ABC Media GmbH", "completed", DateTime.parse('2022-02-01 02:21:43'), null, null, 999.98, "assets/images/logo.png")));
-
-  await DatabaseHelper.getAccountProvider().then((value) => value.clearTable());
-  await DatabaseHelper.getAccountProvider().then((value) => value.insert(Account(1, "Private Account", "master_card", "DE12 1234 5678 91 	", 12589, 5000, "assets/images/logo.png", DateTime.parse('22022-08-06 04:22:04'), DateTime.parse('2022-02-14 10:59:00'))));
-  await DatabaseHelper.getAccountProvider().then((value) => value.insert(Account(2, "Work Account", "credit_card", "EN98 9876 5432 10", -199.99, 8250, "assets/images/logo.png", DateTime.parse('2022-08-28 16:44:23'), DateTime.parse('2022-02-23 02:21:43'))));
 }
 
 class MyApp extends StatelessWidget {
