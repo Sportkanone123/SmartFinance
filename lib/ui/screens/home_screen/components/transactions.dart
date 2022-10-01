@@ -29,7 +29,7 @@ class _TransactionsState extends State<Transactions> {
     TransactionProvider provider =
     await DatabaseHelper.getTransactionsProvider();
 
-    List<Transaction> transactions = await provider.getTransactions();
+    List<Transaction> transactions = await provider.getTransactions(5);
 
     List<Widget> widgetsToDisplay = <Widget>[];
 

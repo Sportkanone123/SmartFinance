@@ -31,7 +31,7 @@ class TransactionsDisplayState extends State<TransactionsDisplay> {
     TransactionProvider provider =
         await DatabaseHelper.getTransactionsProvider();
 
-    List<Transaction> transactions = await provider.getTransactions();
+    List<Transaction> transactions = await provider.getTransactions(1000);
 
     Map<DateTime, List<Transaction>> sortedByDate =
         <DateTime, List<Transaction>>{};

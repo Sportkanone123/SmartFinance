@@ -54,9 +54,28 @@ class TransactionProvider {
     return null;
   }
 
-  Future<List<Transaction>> getTransactions() async {
+  Future<List<Transaction>> getTransactions(int limit) async {
     List<Map> maps = await db!.query(tableTransaction,
         columns: [columnId, columnAccountId, columnTitle, columnMerchant, columnStatus, columnProcessDateTime, columnType, columnMessage, columnSpendingGoalId, columnAmount, columnPathToIcon],
+        limit: limit
+    );
+
+    List<Transaction> transactions = <Transaction>[];
+
+    for(Map map in maps){
+      transactions.add(Transaction.fromMap(map as Map<String, Object?>));
+    }
+
+    return transactions;
+  }
+
+  Future<List<Transaction>> getTransactionsByAccountID(int account, int limit) async {
+    List<Map> maps = await db!.query(tableTransaction,
+      columns: [columnId, columnAccountId, columnTitle, columnMerchant, columnStatus, columnProcessDateTime, columnType, columnMessage, columnSpendingGoalId, columnAmount, columnPathToIcon],
+      where: '$columnAccountId = ?',
+      whereArgs: [account],
+      limit: limit,
+      orderBy: "$columnProcessDateTime DESC"
     );
 
     List<Transaction> transactions = <Transaction>[];

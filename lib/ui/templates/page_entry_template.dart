@@ -150,6 +150,54 @@ class PageEntrySmallTitle extends StatelessWidget {
 }
 
 
+class PageEntrySmallTitleExtendOption extends StatelessWidget {
+  final String title;
+  final Widget child;
+  final Widget extendWidget;
+
+  const PageEntrySmallTitleExtendOption({Key? key, required this.title, required this.child, required this.extendWidget})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(kDefaultPadding, kDefaultPadding * 2, kDefaultPadding, kDefaultPadding / 2),
+      child: Column(
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.only(left: kDefaultPadding, right: kDefaultPadding),
+            alignment: Alignment.centerLeft,
+            child: Row(
+              children: [
+                Expanded(child: Text(title, style: const TextStyle(fontSize: 14, color: Color(0xFF84848A)))),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      NoAnimationMaterialPageRoute(builder: (context) => extendWidget),
+                    );
+                  },
+                  child: const Text("See all ▶", style: TextStyle(fontSize: 16, color: Colors.lightBlue)),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: kDefaultPadding / 2),
+            padding: const EdgeInsets.all(10),
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+              color: Colors.white,
+            ),
+            child: child,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
 class PageEntryWithBalance extends StatelessWidget {
   final String title;
   final double balance;
