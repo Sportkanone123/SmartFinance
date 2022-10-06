@@ -1,5 +1,6 @@
-import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_sqlcipher/sqflite.dart';
 
+import '../../utils/secure_storage.dart';
 import '../objects/Template.dart';
 
 const String tableAccount = 'goals_database';

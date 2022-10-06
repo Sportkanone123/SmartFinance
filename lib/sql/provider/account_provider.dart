@@ -1,7 +1,8 @@
 
 
-import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_sqlcipher/sqflite.dart';
 
+import '../../utils/secure_storage.dart';
 import '../objects/Account.dart';
 import '../objects/Transaction.dart' as transaction;
 
@@ -20,7 +21,7 @@ class AccountProvider {
   Database? db;
 
   Future open(String path) async {
-    db = await openDatabase(path, version: 1,
+    db = await openDatabase(path, version: 1, password: await SecureStorage.read("accounts_pswd"),
         onCreate: (Database db, int version) async {
           await db.execute('''
             create table $tableAccount ( 
@@ -73,7 +74,7 @@ class AccountProvider {
 
     List<Map> maps = await db!.query(tableAccount,
         columns: [columnId, columnTitle, columnType, columnAccountNumber, columnBalance, columnSpendLimit, columnPathToIcon, columnExpirationDate, columnLastUsed],
-        where: '$columnTitle LIKE ?, $columnType LIKE ?, $columnLastUsed LIKE ?, $columnAccountNumber LIKE ?, $columnBalance LIKE ?',
+        where: '$columnTitle LIKE ? OR $columnType LIKE ? OR $columnLastUsed LIKE ? OR $columnAccountNumber LIKE ? OR $columnBalance LIKE ?',
         whereArgs: [keyword, keyword, keyword, keyword, keyword],
     );
 

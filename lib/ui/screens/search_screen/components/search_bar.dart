@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:smart_finance/ui/screens/search_screen/search_screen.dart';
 
 import '../../../components/no_animation_material_page_router.dart';
 import '../../../constants.dart';
-import '../../search_screen/search_screen.dart';
+import '../../account/account_display_screen/account_display_screen.dart';
 
 class SearchBar extends StatefulWidget {
-  const SearchBar({Key? key}) : super(key: key);
+  const SearchBar({Key? key, required this.defaultValue}) : super(key: key);
+  final String defaultValue;
 
   @override
   State<SearchBar> createState() => _SearchBarState();
 }
 
 class _SearchBarState extends State<SearchBar> {
-  TextEditingController searchController = TextEditingController();
+  late TextEditingController searchController = TextEditingController(text: widget.defaultValue);
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +64,9 @@ class TextInput extends StatelessWidget {
 
   const TextInput(
       {Key? key,
-      required this.textString,
-      required this.textController,
-      required this.obscureText})
+        required this.textString,
+        required this.textController,
+        required this.obscureText})
       : super(key: key);
 
   @override

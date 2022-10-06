@@ -1,6 +1,8 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:smart_finance/sql/database_helper.dart';
-import 'package:sqflite/sqflite.dart' hide Transaction;
+import 'package:sqflite_sqlcipher/sqflite.dart' hide Transaction;
 
+import '../../utils/secure_storage.dart';
 import '../objects/Transaction.dart';
 
 const String tableAccount = 'accounts';
@@ -22,7 +24,7 @@ class TransactionProvider {
   Database? db;
 
   Future open(String path) async {
-    db = await openDatabase(path, version: 1,
+    db = await openDatabase(path, version: 1, password: await SecureStorage.read("transactions_pswd"),
         onCreate: (Database db, int version) async {
           await db.execute('''
             create table $tableTransaction (
@@ -80,7 +82,7 @@ class TransactionProvider {
 
     List<Map> maps = await db!.query(tableTransaction,
         columns: [columnId, columnAccountId, columnTitle, columnMerchant, columnStatus, columnProcessDateTime, columnType, columnMessage, columnSpendingGoalId, columnAmount, columnPathToIcon],
-        where: '$columnTitle LIKE ?, $columnMerchant LIKE ?, $columnType LIKE ?, $columnMessage LIKE ?, $columnAmount LIKE ?',
+        where: '$columnTitle LIKE ? OR $columnMerchant LIKE ? OR $columnType LIKE ? OR $columnMessage LIKE ? OR $columnAmount LIKE ?',
         whereArgs: [keyword, keyword, keyword, keyword, keyword],
         orderBy: "$columnProcessDateTime DESC"
     );
