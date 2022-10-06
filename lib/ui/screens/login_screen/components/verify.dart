@@ -22,7 +22,6 @@ class _VerifyState extends State<Verify> {
     super.initState();
     Authentication.authenticate().then((value) => {
       if (value) {
-        
         Navigator.of(context).push(
           NoAnimationMaterialPageRoute(
             builder: (context) => const HomeScreen(),
@@ -40,36 +39,7 @@ class _VerifyState extends State<Verify> {
 
   @override
   Widget build(BuildContext context) {
-      return Container(
-        padding: const EdgeInsets.only(bottom: kDefaultPadding * 2),
-        child: ElevatedButton(
-          onPressed: () async {
-            Authentication.authenticate().then((value) =>
-            {
-              if (value) {
-                Navigator.of(context).push(
-                  NoAnimationMaterialPageRoute(
-                    builder: (context) => const HomeScreen(),
-                  ),
-                ),
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  Authentication.customSnackBar(
-                    content: 'Error occurred during authenticating.',
-                  ),
-                )
-              }
-            });
-          },
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: const <Widget>[
-              Text('Try Again'),
-              Icon(Icons.perm_device_information),
-            ],
-          ),
-        ),
-      );
+      return Container();
     }
 }
 
