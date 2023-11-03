@@ -19,10 +19,10 @@ class Body extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Column(
-        children: <Widget>[
-          const MyAccount(),
-          const Transactions(),
-          TextButton(
+        children: const <Widget>[
+          MyAccount(),
+          Transactions(),
+          /*TextButton(
             onPressed: () async {
               await DatabaseHelper.getAccountProvider().then((value) => value.clearTable());
               await DatabaseHelper.getTransactionsProvider().then((value) => value.clearTable());
@@ -55,7 +55,7 @@ class Body extends StatelessWidget {
               );
             },
             child: const SizedBox(width: double.maxFinite, child: Text('Add default Values')),
-          )
+          )*/
           //Options(size: size), TODO Add options for fast access.
         ],
       ),

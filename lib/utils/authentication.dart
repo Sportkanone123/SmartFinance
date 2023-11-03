@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_jailbreak_detection/flutter_jailbreak_detection.dart';
-import 'package:local_auth/local_auth.dart';
 
 class Authentication {
   static Future<bool> authenticate() async {
-    bool isJailbroken = await checkForJailbreak();
+    /*bool isJailbroken = await checkForJailbreak();
 
     if(!isJailbroken){
       final LocalAuthentication localAuthentication = LocalAuthentication();
@@ -24,11 +21,13 @@ class Authentication {
       return isAuthenticated;
     } else {
       return false;
-    }
+    }*/
+
+    return true;
   }
 
   static Future<bool> authenticateWithBiometrics() async {
-    bool isJailbroken = await checkForJailbreak();
+    /*bool isJailbroken = await checkForJailbreak();
     bool isBiometricSupported = await checkBiometricSupport();
 
     if(!isJailbroken && isBiometricSupported){
@@ -67,7 +66,7 @@ class Authentication {
     List<BiometricType> biometricTypes = await localAuthentication.getAvailableBiometrics();
     if(biometricTypes.isEmpty) {
       return false;
-    }
+    }*/
 
     return true;
   }

@@ -1,4 +1,4 @@
-import 'package:sqflite_sqlcipher/sqflite.dart';
+import 'package:sqflite/sqflite.dart' hide Transaction;
 
 import '../objects/Goal.dart';
 

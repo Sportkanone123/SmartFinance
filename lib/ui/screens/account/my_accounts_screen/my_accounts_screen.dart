@@ -20,11 +20,11 @@ class MyAccountsScreen extends StatelessWidget {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      toolbarHeight: 106,
+      toolbarHeight: 112,
       elevation: 0,
       flexibleSpace: Column(
         children: <Widget>[
-          SizedBox(height: MediaQuery.of(context).size.width * 0.1,),
+          SizedBox(height: 10,),
           const Header(),
         ],
       ),

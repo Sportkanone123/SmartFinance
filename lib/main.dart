@@ -1,13 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:smart_finance/sql/database_helper.dart';
-import 'package:smart_finance/sql/objects/Account.dart';
-import 'package:smart_finance/sql/objects/Transaction.dart';
 import 'package:smart_finance/ui/constants.dart';
-import 'package:smart_finance/ui/screens/home_screen/home_screen.dart';
 import 'package:smart_finance/ui/screens/login_screen/login_screen.dart';
-import 'package:smart_finance/ui/templates/account/account_template.dart';
-import 'package:smart_finance/utils/authentication.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +14,10 @@ void main() {
     systemNavigationBarIconBrightness: Brightness.dark,
   ));
 
-
+  if (kIsWeb) {
+    // Change default factory on the web
+    databaseFactory = databaseFactoryFfiWeb;
+  }
 }
 
 class MyApp extends StatelessWidget {

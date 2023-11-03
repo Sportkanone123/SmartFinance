@@ -23,6 +23,8 @@ class Information extends StatelessWidget {
             runSpacing: kDefaultPadding * 1.5,
             children: [
               InformationTemplate(title: "Title", value: account.title),
+              if(account.id != null)
+                InformationTemplate(title: "ID", value: account.id!.toString()),
               InformationTemplate(title: "Type", value: account.type.toUpperCase()),
               InformationTemplate(title: "Account Number", value: account.accountNumber),
 

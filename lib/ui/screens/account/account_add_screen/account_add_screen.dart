@@ -28,7 +28,7 @@ class AccountAddScreen extends StatelessWidget {
       elevation: 0,
       flexibleSpace: Column(
         children: <Widget>[
-          SizedBox(height: MediaQuery.of(context).size.width * 0.1,),
+          SizedBox(height: 20),
           Header(widget: informationAdd),
         ],
       ),

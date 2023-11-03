@@ -1,6 +1,5 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:smart_finance/sql/database_helper.dart';
-import 'package:sqflite_sqlcipher/sqflite.dart' hide Transaction;
+import 'package:sqflite/sqflite.dart' hide Transaction;
 
 import '../../utils/secure_storage.dart';
 import '../objects/Transaction.dart';
@@ -24,7 +23,7 @@ class TransactionProvider {
   Database? db;
 
   Future open(String path) async {
-    db = await openDatabase(path, version: 1, password: await SecureStorage.read("transactions_pswd"),
+    db = await openDatabase(path, version: 1/*, password: await SecureStorage.read("transactions_pswd")*/,
         onCreate: (Database db, int version) async {
           await db.execute('''
             create table $tableTransaction (

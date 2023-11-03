@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../constants.dart';
 import 'components/body.dart';
 import 'components/header.dart';
-import 'components/search_bar.dart';
+import 'components/search_bar.dart' as searchbar;
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({Key? key, required this.search}) : super(key: key);
@@ -25,9 +25,9 @@ class SearchScreen extends StatelessWidget {
       elevation: 0,
       flexibleSpace: Column(
         children: <Widget>[
-          SizedBox(height: MediaQuery.of(context).size.width * 0.1,),
+          SizedBox(height: 13,),
           const Header(),
-          SearchBar(defaultValue: search,),
+          searchbar.SearchBar(defaultValue: search,),
           const Divider(
               color: Colors.grey,
               thickness: 2,

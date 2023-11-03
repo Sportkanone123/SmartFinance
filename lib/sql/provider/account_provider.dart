@@ -1,10 +1,10 @@
 
 
-import 'package:sqflite_sqlcipher/sqflite.dart';
+import 'package:smart_finance/sql/objects/Transaction.dart';
+import 'package:sqflite/sqflite.dart' hide Transaction;
 
 import '../../utils/secure_storage.dart';
 import '../objects/Account.dart';
-import '../objects/Transaction.dart' as transaction;
 
 const String tableAccount = 'accounts';
 const String columnId = 'id';
@@ -21,7 +21,7 @@ class AccountProvider {
   Database? db;
 
   Future open(String path) async {
-    db = await openDatabase(path, version: 1, password: await SecureStorage.read("accounts_pswd"),
+    db = await openDatabase(path, version: 1,/* password: await SecureStorage.read("accounts_pswd"),*/
         onCreate: (Database db, int version) async {
           await db.execute('''
             create table $tableAccount ( 
@@ -100,7 +100,7 @@ class AccountProvider {
         where: "$columnId = ?", whereArgs: [account.id]);
   }
 
-  Future<void> modifyBalance(transaction.Transaction transaction, double amount) async {
+  Future<void> modifyBalance(Transaction transaction, double amount) async {
     db!.execute("UPDATE $tableAccount SET $columnBalance = $columnBalance + $amount WHERE $columnId = ${transaction.accountId}");
   }
 

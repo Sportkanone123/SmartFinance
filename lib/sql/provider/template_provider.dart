@@ -1,6 +1,4 @@
-import 'package:sqflite_sqlcipher/sqflite.dart';
-
-import '../../utils/secure_storage.dart';
+import 'package:sqflite/sqflite.dart' hide Transaction;
 import '../objects/Template.dart';
 
 const String tableAccount = 'goals_database';

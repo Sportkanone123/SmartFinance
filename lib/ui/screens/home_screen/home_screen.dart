@@ -4,7 +4,7 @@ import '../../components/my_bottom_nav_bar.dart';
 import '../../constants.dart';
 import 'components/body.dart';
 import 'components/header.dart';
-import 'components/search_bar.dart';
+import 'components/search_bar.dart' as searchbar;
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,13 +21,13 @@ class HomeScreen extends StatelessWidget {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      toolbarHeight: 106,
+      toolbarHeight: 112,
       elevation: 0,
       flexibleSpace: Column(
         children: <Widget>[
-          SizedBox(height: MediaQuery.of(context).size.width * 0.1,),
+          SizedBox(height: 10,),
           const Header(),
-          const SearchBar(),
+          const searchbar.SearchBar(),
         ],
       ),
       backgroundColor: kBackgroundColor,
